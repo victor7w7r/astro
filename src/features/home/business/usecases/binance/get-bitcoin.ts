@@ -1,10 +1,17 @@
-import type { Binance, UseCase } from '@/home/business/models'
-import type { BinanceRepository } from '@/home/business/repositories'
+import { inject, injectable } from 'inversify'
 
-export const getBitcoinUseCase = ({
-  binanceRepository
-}: Readonly<{
-  binanceRepository: BinanceRepository
-}>): UseCase<Binance> => ({
-  exec: binanceRepository.getBitcoin
-})
+import type { Binance, UseCase } from '@/home/business/models'
+import {
+  binanceRepositoryId,
+  type BinanceRepository
+} from '@/home/business/repositories'
+
+@injectable()
+export class GetBitcoinUseCase implements UseCase<Binance> {
+  constructor(
+    @inject(binanceRepositoryId)
+    public readonly binanceRepository: BinanceRepository
+  ) {}
+
+  readonly exec = () => this.binanceRepository.getBitcoin()
+}

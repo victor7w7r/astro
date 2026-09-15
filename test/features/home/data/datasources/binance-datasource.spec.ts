@@ -2,7 +2,7 @@ import { mock } from 'vitest-mock-extended'
 
 import { errorBinance } from '@/home/business/models'
 import { BinanceDataSource, binanceDataSource } from '@/home/data/datasources'
-import { timeout } from '~/modules'
+import { timeout } from '~/modules/di-module.ts'
 
 describe('binanceDataSource', () => {
   let axiosInstance: ReturnType<typeof mock<AxiosInstance>>

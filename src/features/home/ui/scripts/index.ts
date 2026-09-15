@@ -1,17 +1,12 @@
-import { html } from 'sinuous'
-import { define } from 'uce'
-
-import { inject } from '~/di'
+import { themeService } from '@/common/ui/services'
 
 export const path = (isDark: boolean, white: string, black: string) =>
   `/img/${isDark ? white : black}.png`
 
-// eslint-disable-next-line import/exports-last
 export const scriptFunction = () => {
-  const { changeBlue, changeEmerald, changePurple, changeRed, themeStore } =
-    inject.resolve('themeService')
+  const themeState = themeService()
 
-  define<
+  /* define<
     {
       black: string
       classstyle: string
@@ -31,12 +26,12 @@ export const scriptFunction = () => {
         src='${path(this.isDark, this.props.white, this.props.black)}'
       />`
     }
-  })
+    })*/
 
-  document.querySelector('#buttons-selector')?.append(html`
+  /*document.querySelector('#buttons-selector')?.append(html`
     <button class="blue-button" onclick=${changeBlue}></button>
     <button class="purple-button" onclick=${changePurple}></button>
     <button class="red-button" onclick=${changeRed}></button>
     <button class="emerald-button" onclick=${changeEmerald}></button>
-  `)
+  `)*/
 }

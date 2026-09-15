@@ -1,23 +1,18 @@
-import type { AxiosResponse } from 'axios'
+import type { ApiResponse } from 'apisauce'
+import { injectable, type ServiceIdentifier } from 'inversify'
 
 import type { Binance } from '@/home/business/models'
-import { type AxiosModule, timeout } from '~/modules'
+import { api, timeout } from '~/modules/api-module'
 
-export type BinanceDataSource = Readonly<{
-  getBitcoin: () => Promise<AxiosResponse<Binance[]>>
-}>
+export type BinanceDataSource = {
+  readonly getBitcoin: () => Promise<ApiResponse<Binance[]>>
+}
 
-export const binanceDataSource = ({
-  axiosModule
-}: Readonly<{
-  axiosModule: AxiosModule
-}>): BinanceDataSource => {
-  const route = '/v3/ticker/24hr'
+export const binanceDataSourceId: ServiceIdentifier<BinanceDataSource> =
+  Symbol.for('BinanceDataSourceId')
 
-  const getBitcoin = () =>
-    axiosModule.client.get<Binance[]>(route, {
-      timeout
-    })
-
-  return { getBitcoin }
+@injectable()
+export class BinanceDataSourceImpl implements BinanceDataSource {
+  private readonly route = '/v3/ticker/24hr'
+  readonly getBitcoin = () => api.get<Binance[]>(this.route, { timeout })
 }

@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@solidjs/testing-library'
 
-import { Toggler } from '@/common/ui/components/toggler/toggler'
+import { Toggler } from '@/common/ui/components/toggler/toggler.svelte'
 
 describe('toggler', () => {
   const mocks = vi.hoisted(() => ({

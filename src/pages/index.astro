@@ -1,10 +1,9 @@
 ---
 import '@/home/ui/styles/home.css'
 
-import { CookieState } from '@/common/ui/components/cookie-state/cookie-state'
-import { StorageState } from '@/common/ui/components/storage-state/storage-state'
+import StorageState from '@/common/ui/components/storage-state/storage-state.vue'
 import Layout from '@/common/ui/layouts/Layout.astro'
-import { Call } from '@/home/ui/components/call'
+import Call from '@/home/ui/components/call.svelte'
 import Spinner from '@/home/ui/components/Spinner.astro'
 ---
 
@@ -32,7 +31,6 @@ import Spinner from '@/home/ui/components/Spinner.astro'
         <img alt='' class='' id='imagetwo' />
       </div>
       <div class='card-container' id='card-container'>
-        <CookieState client:load />
         <StorageState client:load />
         <h3 class='adaptable-center-text-bold'>Lets see bitcoin price</h3>
         <Call client:load><Spinner /></Call>

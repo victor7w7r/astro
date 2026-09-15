@@ -1,25 +1,29 @@
 import { pipe } from 'fp-ts/lib/function'
 import { of } from 'fp-ts/lib/Task'
 import { getOrElse, map, tryCatch } from 'fp-ts/lib/TaskEither'
+import { inject, injectable } from 'inversify'
 
 import { errorBinance } from '@/home/business/models'
 import type { BinanceRepository } from '@/home/business/repositories'
-import type { BinanceDataSource } from '@/home/data/datasources'
+import {
+  binanceDataSourceId,
+  type BinanceDataSource
+} from '@/home/data/datasources'
 
-export const binanceRepository = ({
-  binanceDataSource
-}: Readonly<{
-  binanceDataSource: BinanceDataSource
-}>): BinanceRepository => {
-  const getBitcoin = async () =>
+@injectable()
+export class BinanceRepositoryImpl implements BinanceRepository {
+  constructor(
+    @inject(binanceDataSourceId)
+    public readonly binanceDataSource: BinanceDataSource
+  ) {}
+
+  readonly getBitcoin = async () =>
     pipe(
-      tryCatch(binanceDataSource.getBitcoin, e => e),
+      tryCatch(this.binanceDataSource.getBitcoin, e => e),
       map(
         res =>
-          res.data.find(curr => curr.symbol === 'BTCUSDT') ?? errorBinance()
+          res.data?.find(curr => curr.symbol === 'BTCUSDT') ?? errorBinance()
       ),
       getOrElse(() => of(errorBinance()))
     )()
-
-  return { getBitcoin }
 }

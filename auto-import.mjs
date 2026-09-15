@@ -9,11 +9,6 @@ export const imports = [
 
 export const importTypes = [
   {
-    from: 'solid-js',
-    imports: ['Component, JSX', 'Accessor', 'Setter'],
-    type: true
-  },
-  {
     from: 'axios',
     imports: ['AxiosInstance'],
     type: true

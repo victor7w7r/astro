@@ -1,27 +1,44 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": ".",
     "allowImportingTsExtensions": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
     "noEmit": true,
     "paths": {
-      "@/*": ["src/features/*"],
-      "~/*": ["src/core/*"]
+      "@/*": [
+        "./src/features/*"
+      ],
+      "~/*": [
+        "./src/core/*"
+      ]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ESNext",
-    "types": ["vitest/globals"],
+    "types": [
+      "vite-plugin-terminal/client",
+      "vitest/globals"
+    ],
   },
   "extends": "./tsconfig.app.json",
-  "exclude": ["dist"],
-  "include": [".astro/types.d.ts","src", "test", "auto-import.ts"],
+  "exclude": [
+    "dist"
+  ],
+  "include": [
+    ".astro/types.d.ts",
+    "src",
+    "test",
+    "auto-import.ts"
+  ]
 }

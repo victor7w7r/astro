@@ -1,9 +1,7 @@
 /// <reference types="vitest" />
 import { getViteConfig } from 'astro/config'
-import solidPlugin from 'vite-plugin-solid'
 
 export default getViteConfig({
-  plugins: [solidPlugin()],
   test: {
     coverage: {
       enabled: true,
@@ -11,7 +9,7 @@ export default getViteConfig({
     },
     environment: 'jsdom',
     globals: true,
-    include: ['./test/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    include: ['./test/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts}'],
     setupFiles: './test/setup-tests.ts'
   }
 })

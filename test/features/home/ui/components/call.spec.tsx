@@ -1,6 +1,6 @@
 import { render, screen } from '@solidjs/testing-library'
 
-import { Call } from '@/home/ui/components/call'
+import { Call } from '@/home/ui/components/call.svelte'
 
 describe('call', () => {
   const mocks = vi.hoisted(() => ({

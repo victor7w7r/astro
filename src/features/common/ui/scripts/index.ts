@@ -1,10 +1,9 @@
-import { inject } from '~/di'
+import { themeService } from '@/common/ui/services'
 
-// eslint-disable-next-line import/exports-last
 export const scriptFunction = () => {
-  const className = 'card-container'
+  const themeStore = themeService().themeStore
 
-  const { themeStore } = inject.resolve('themeService')
+  const className = 'card-container'
 
   for (const el of document.querySelectorAll('#card-container')) {
     el.className = `${className} ${themeStore.get().control}`

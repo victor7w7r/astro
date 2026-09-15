@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { inject } from '~/di'
+import { themeService } from '@/common/ui/services'
 
-// eslint-disable-next-line import/exports-last
 export const scriptFunction = () => {
-  const { themeStore } = inject.resolve('themeService')
+  const { themeStore } = themeService()
 
   const className = 'app min-h-screen transition-colors duration-1000'
-  const main = document.querySelector('main')
+  const main = document.querySelector('main') ?? document.createElement('main')
 
-  main!.className = `${className} ${themeStore.get().white} ${themeStore.get().dark}`
+  main.className = `${className} ${themeStore.get().white} ${themeStore.get().dark}`
   themeStore.subscribe(
-    th => (main!.className = `${className} ${th.white} ${th.dark}`)
+    th => (main.className = `${className} ${th.white} ${th.dark}`)
   )
 }

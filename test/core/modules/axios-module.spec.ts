@@ -1,4 +1,4 @@
-import { axiosModule } from '~/modules'
+import { axiosModule } from '~/modules/di-module.ts'
 
 describe('axiosModule', () => {
   it('should return an object', () => {

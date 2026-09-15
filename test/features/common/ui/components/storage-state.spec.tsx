@@ -1,7 +1,7 @@
 import { render, screen } from '@solidjs/testing-library'
 import { describe, expect, it, vi } from 'vitest'
 
-import { StorageState } from '@/common/ui/components/storage-state/storage-state'
+import { StorageState } from '@/common/ui/components/storage-state/storage-state.vue'
 
 describe('storageState', () => {
   const mocks = vi.hoisted(() => ({

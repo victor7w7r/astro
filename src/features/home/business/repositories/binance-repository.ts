@@ -1,5 +1,10 @@
+import type { ServiceIdentifier } from 'inversify'
+
 import type { Binance } from '@/home/business/models'
 
-export type BinanceRepository = Readonly<{
-  getBitcoin: () => Promise<Binance>
-}>
+export interface BinanceRepository {
+  readonly getBitcoin: () => Promise<Binance>
+}
+
+export const binanceRepositoryId: ServiceIdentifier<BinanceRepository> =
+  Symbol.for('BinanceRepositoryId')

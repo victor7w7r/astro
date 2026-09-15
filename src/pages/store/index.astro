@@ -1,8 +1,7 @@
 ---
 import '@/store/ui/styles/store.css'
 
-import { CookieState } from '@/common/ui/components/cookie-state/cookie-state'
-import { StorageState } from '@/common/ui/components/storage-state/storage-state'
+import StorageState from '@/common/ui/components/storage-state/storage-state.vue'
 import Layout from '@/common/ui/layouts/Layout.astro'
 ---
 
@@ -22,7 +21,6 @@ import Layout from '@/common/ui/layouts/Layout.astro'
         <label class='floating-design' for='floating'> here</label>
       </div>
       <div class='store-btn' id='send-button'></div>
-      <CookieState client:load />
       <StorageState client:load />
     </div>
     <div class='centered-button-ctn'>
