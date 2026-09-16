@@ -1,3 +1,4 @@
+import { pipe } from 'fp-ts/lib/function'
 import { of } from 'fp-ts/lib/Task'
 import { getOrElse, map, tryCatch } from 'fp-ts/lib/TaskEither'
 import { inject, injectable } from 'inversify'

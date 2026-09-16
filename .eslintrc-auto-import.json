@@ -10,7 +10,6 @@
     "html": true,
     "mock": true,
     "modeService": true,
-    "pipe": true,
     "state": true
   }
 }

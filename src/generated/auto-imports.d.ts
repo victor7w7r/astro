@@ -17,7 +17,6 @@ declare global {
   const html: typeof import('lit').html
   const mock: typeof import('vitest-mock-extended').mock
   const modeService: typeof import('@/common/ui/services').modeService
-  const pipe: typeof import('fp-ts/lib/function').pipe
   const state: typeof import('lit/decorators.js').state
 }
 // for type re-export
