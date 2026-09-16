@@ -1,5 +1,4 @@
 import { GetBitcoinUseCase } from '@/home/business/usecases/binance'
-import { container } from '~/modules/di-module'
 
 export const bitcoinPromise = container
   .get(GetBitcoinUseCase, { autobind: true })

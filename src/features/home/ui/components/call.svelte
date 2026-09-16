@@ -1,9 +1,10 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
+import type { Snippet } from 'svelte'
 
-  import { bitcoinPromise, formatPrice } from './call.svelte.ts'
+import { bitcoinPromise, formatPrice } from './call.svelte.ts'
 
-  let { children }: { children?: Snippet } = $props()
+// oxlint-disable-next-line toplevel/no-toplevel-let
+let { children }: { children?: Snippet } = $props()
 </script>
 
 <div

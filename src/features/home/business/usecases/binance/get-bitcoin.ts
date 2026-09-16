@@ -2,8 +2,8 @@ import { inject, injectable } from 'inversify'
 
 import type { Binance, UseCase } from '@/home/business/models'
 import {
-  binanceRepositoryId,
-  type BinanceRepository
+  type BinanceRepository,
+  binanceRepositoryId
 } from '@/home/business/repositories'
 
 @injectable()

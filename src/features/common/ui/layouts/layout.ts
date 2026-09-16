@@ -1,4 +1,5 @@
-import { dataService, modeService } from '@/common/ui/services'
+const applyAccent = (accent: string) =>
+  (document.documentElement.dataset['accent'] = accent)
 
 export const script = () => {
   const { modeStore } = modeService()
@@ -8,9 +9,6 @@ export const script = () => {
     if (typeof document !== 'undefined')
       document.documentElement.classList.toggle('dark', isDark)
   })
-
-  const applyAccent = (accent: string) =>
-    (document.documentElement.dataset['accent'] = accent)
 
   applyAccent(dataStore.get().color)
 

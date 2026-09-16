@@ -1,4 +1,3 @@
-import { pipe } from 'fp-ts/lib/function'
 import { of } from 'fp-ts/lib/Task'
 import { getOrElse, map, tryCatch } from 'fp-ts/lib/TaskEither'
 import { inject, injectable } from 'inversify'
@@ -6,8 +5,8 @@ import { inject, injectable } from 'inversify'
 import { errorBinance } from '@/home/business/models'
 import type { BinanceRepository } from '@/home/business/repositories'
 import {
-  binanceDataSourceId,
-  type BinanceDataSource
+  type BinanceDataSource,
+  binanceDataSourceId
 } from '@/home/data/datasources'
 
 @injectable()

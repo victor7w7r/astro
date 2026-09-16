@@ -4,9 +4,9 @@ import { injectable, type ServiceIdentifier } from 'inversify'
 import type { Binance } from '@/home/business/models'
 import { api } from '~/modules/api-module'
 
-export type BinanceDataSource = {
-  readonly getBitcoin: () => Promise<ApiResponse<Binance>>
-}
+export type BinanceDataSource = Readonly<{
+  getBitcoin: () => Promise<ApiResponse<Binance>>
+}>
 
 export const binanceDataSourceId: ServiceIdentifier<BinanceDataSource> =
   Symbol.for('BinanceDataSourceId')

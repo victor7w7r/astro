@@ -1,27 +1,19 @@
-import { html, LitElement } from 'lit'
-import { customElement, state } from 'lit/decorators.js'
-
-import { dataService } from '@/common/ui/services'
-
 export const script = () => {
   if (typeof customElements === 'undefined') return
 
   if (!customElements.get('store-form')) {
     @customElement('store-form')
+    // oxlint-disable-next-line no-unused-vars
     class StoreForm extends LitElement {
       private readonly service = dataService()
       private readonly dataStore = this.service.dataStore
-      private readonly setText = this.service.setText
-
       @state() private accessor value: string = this.dataStore.get().text
+
       @state() private accessor draftValue: string = this.value
       @state() private accessor feedback = ''
+      private readonly setText = this.service.setText
 
       private unsubscribe?: () => void
-
-      override createRenderRoot() {
-        return this
-      }
 
       override connectedCallback() {
         super.connectedCallback()
@@ -32,20 +24,13 @@ export const script = () => {
         })
       }
 
+      override createRenderRoot() {
+        return this
+      }
+
       override disconnectedCallback() {
         this.unsubscribe?.()
         super.disconnectedCallback()
-      }
-
-      private updateValue = (event: Event) => {
-        this.draftValue = (event.target as HTMLInputElement).value
-      }
-
-      private saveValue = () => {
-        const value = this.draftValue.trim()
-
-        this.setText(value)
-        this.feedback = value ? 'Saved.' : 'Store State: Not yet'
       }
 
       override render() {
@@ -84,6 +69,17 @@ export const script = () => {
             </div>
           </div>
         `
+      }
+
+      private saveValue = () => {
+        const value = this.draftValue.trim()
+
+        this.setText(value)
+        this.feedback = value ? 'Saved.' : 'Store State: Not yet'
+      }
+
+      private updateValue = (event: Event) => {
+        this.draftValue = (event.target as HTMLInputElement).value
       }
     }
   }

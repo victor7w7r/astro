@@ -1,7 +1,3 @@
-import { fromStore } from 'svelte/store'
-
-import { modeService } from '@/common/ui/services'
-
 export const useDarkTheme = () => {
   const { modeStore, toggle } = modeService()
 

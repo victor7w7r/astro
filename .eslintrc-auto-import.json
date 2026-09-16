@@ -1,0 +1,16 @@
+{
+  "globals": {
+    "Accent": true,
+    "LitElement": true,
+    "container": true,
+    "customElement": true,
+    "dataService": true,
+    "environment": true,
+    "fromStore": true,
+    "html": true,
+    "mock": true,
+    "modeService": true,
+    "pipe": true,
+    "state": true
+  }
+}

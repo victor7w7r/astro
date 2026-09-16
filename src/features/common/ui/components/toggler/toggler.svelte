@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { useDarkTheme } from './toggler.svelte.ts'
+import { useDarkTheme } from './toggler.svelte.ts'
 
-  const theme = useDarkTheme()
+const theme = useDarkTheme()
 </script>
 
 <div class="relative">

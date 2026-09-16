@@ -1,16 +1,14 @@
 <script setup lang="ts">
   import { useStore } from '@nanostores/vue'
 
-  import { dataService, type Accent } from '@/common/ui/services'
-
   const { setAccent, dataStore } = dataService()
   const data = useStore(dataStore)
 
-  const colors: ReadonlyArray<{
-    name: Accent
-    label: string
+  const colors: readonly {
     className: string
-  }> = [
+    label: string
+    name: Accent
+  }[] = [
     {
       name: 'purple',
       label: 'Select purple theme',

@@ -9,13 +9,11 @@ import {
   perfectionist,
   promise,
   security,
-  simpleImportSort,
   sonar,
   toplevel,
   typescript,
   unicorn,
-  svelte,
-  vue
+  svelte
 } from 'v7w7r-jslib'
 
 export default defineConfig({
@@ -26,6 +24,21 @@ export default defineConfig({
   env: {
     browser: true,
     node: true
+  },
+  globals: {
+    Accent: 'readonly',
+    LitElement: 'readonly',
+    container: 'readonly',
+    customElement: 'readonly',
+    dataService: 'readonly',
+    environment: 'readonly',
+    fromStore: 'readonly',
+    html: 'readonly',
+    modeService: 'readonly',
+    mock: 'readonly',
+    pipe: 'readonly',
+    state: 'readonly',
+    $props: 'readonly'
   },
   ignorePatterns: [
     '**/node_modules/',
@@ -38,11 +51,16 @@ export default defineConfig({
     'server',
     'tmp',
     '.env',
+    'src/generated/auto-imports.d.ts',
     '.dockerignore',
     '.gitignore',
     'Dockerfile',
+    'test-old',
     'LICENSE'
   ],
+  rules: {
+    'no-unused-vars': 'off'
+  },
   extends: [
     astro,
     all,
@@ -53,12 +71,10 @@ export default defineConfig({
     perfectionist,
     promise,
     security,
-    simpleImportSort,
     sonar,
     svelte,
     toplevel,
     typescript,
-    unicorn,
-    vue
+    unicorn
   ]
 })

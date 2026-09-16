@@ -1,12 +1,8 @@
 # 036astro
 
-A clean architecture template for Astro with essential packages and strict TypeScript
+A clean architecture template for Astro with essential packages and strict TypeScript. Made with ❤️ by
 
-## Why Typescript?
-
-Is the best programming language for web. Made with ❤️ by
-
-![Alt text](/public/img/brandwhite.png?raw=true 'Title')
+![Alt text](/public/brandwhite.png?raw=true 'Title')
 
 ### Change to blank template
 
@@ -18,14 +14,14 @@ $ git checkout blank
 
 ## Extra Packages
 
-- axios: Promise based HTTP client for the browser and node.js
-- awilix: Extremely powerful Dependency Injection (DI) container for JavaScript/TypeScript projects
+- apisauce: Axios + standardized errors + request/response transforms.
+- inversify: lightweight inversion of control (IoC) container for TypeScript apps
 - fp-ts: Functional programming in TypeScript
 - nanostores: A tiny (less than 1kb) state manager using observables and persistent stores
-- uce: µhtml based Custom Elements
-- solidjs: A declarative, efficient, and flexible JavaScript library for building user interfaces
-- tailwindcss: Utility-first CSS framework for rapidly building custom user interfaces
+- unocss: The instant on-demand Atomic CSS engine, replacement of tailwindcss
 - unplugin-auto-import: Automatically import components, hooks, and utilities
+
+Svelte, Vue and Lit frameworks, includes useful vite plugins for debugging.
 
 ### Run and Develop (Consider using bun)
 

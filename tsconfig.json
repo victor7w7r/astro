@@ -8,38 +8,25 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noEmit": true,
     "paths": {
-      "@/*": [
-        "./src/features/*"
-      ],
-      "~/*": [
-        "./src/core/*"
-      ]
+      "@/*": ["./src/features/*"],
+      "~/*": ["./src/core/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ESNext",
-    "types": [
-      "vite-plugin-terminal/client",
-      "vitest/globals"
-    ],
+    "types": ["vite-plugin-terminal/client", "vitest/globals"]
   },
   "extends": "./tsconfig.app.json",
-  "exclude": [
-    "dist"
-  ],
+  "exclude": ["dist"],
   "include": [
     ".astro/types.d.ts",
     "src",
     "test",
-    "auto-import.ts"
+    "src/generated/auto-imports.d.ts"
   ]
 }

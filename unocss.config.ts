@@ -70,14 +70,14 @@ export default defineConfig({
     {
       getCSS() {
         return `
-	        @font-face {
-	          font-family: 'AminaReska';
-	          src: url('/fonts/amina-reska.woff') format('woff');
-	          font-weight: 400;
-	          font-style: normal;
-	          font-display: swap;
-	        }
-				`
+        @font-face {
+          font-family: 'AminaReska';
+          src: url('/fonts/amina-reska.woff') format('woff');
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
+        }
+       `
       }
     }
   ]

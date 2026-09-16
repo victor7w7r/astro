@@ -1,15 +1,12 @@
 import svelte from '@astrojs/svelte'
 import vue from '@astrojs/vue'
 import UnoCSS from '@unocss/astro'
-import AstroAutoImport from 'astro-auto-import'
 import { defineConfig } from 'astro/config'
 import Sonda from 'sonda/astro'
 import AutoExport from 'unplugin-auto-export/vite'
 import AutoImport from 'unplugin-auto-import/astro'
-import PreprocessorDirectives from 'unplugin-preprocessor-directives/vite'
-import viteRemove from 'unplugin-remove/vite'
 import TurboConsole from 'unplugin-turbo-console/astro'
-import checker from 'vite-plugin-checker'
+import ViteChecker from 'vite-plugin-checker'
 import circleDependency from 'vite-plugin-circular-dependency'
 import Terminal from 'vite-plugin-terminal'
 
@@ -18,16 +15,15 @@ import { imports, importTypes } from './auto-import'
 export default defineConfig({
   integrations: [
     (await import('@playform/compress')).default(),
-    AstroAutoImport(),
     AutoImport({
       dts: 'src/generated/auto-imports.d.ts',
-      imports: [
-        {
-          'axios': [['default', 'axios']]
-        },
-        ...imports,
-        ...importTypes
-      ]
+      eslintrc: {
+        enabled: true,
+        filepath: './.eslintrc-auto-import.json',
+        globalsPropValue: true
+      },
+      // oxlint-disable-next-line typescript/no-unsafe-assignment
+      imports: [...imports, ...importTypes]
     }),
     UnoCSS(),
     TurboConsole(),
@@ -45,11 +41,21 @@ export default defineConfig({
     },
     plugins: [
       Sonda(),
-      AutoExport(),
+      AutoExport({
+        path: [
+          'src/features/common/ui/services/*',
+          'src/features/home/business/models/*',
+          'src/features/home/business/repositories/*',
+          'src/features/home/business/usecases/binance/*',
+          'src/features/home/data/datasources/*',
+          'src/features/home/data/repositories/*'
+        ],
+
+        extname: 'ts',
+        formatter: filename => `export * from './${filename}'`
+      }),
       Terminal(),
-      viteRemove(),
-      checker(),
-      PreprocessorDirectives(),
+      ViteChecker(),
       circleDependency({ outputFilePath: './circleDep' })
     ]
   }
