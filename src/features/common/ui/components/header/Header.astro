@@ -1,26 +1,24 @@
 ---
-import './header.css'
-
 import Toggler from '@/common/ui/components/toggler/toggler.svelte'
+import { Image } from 'astro:assets'
 ---
 
-<div class='flex items-center justify-center'>
-  <nav class='navbar' id='navbar'>
-    <div
-      class='mx-auto flex max-w-7xl items-center justify-between px-2 sm:px-6 lg:px-8'
+<header class='w-full bg-white text-slate-900 transition-colors duration-700 dark:bg-black dark:text-white'>
+  <div class='content-width flex flex-col items-start gap-5 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-6 lg:px-12'>
+  <a class='group inline-group no-underline' href='/' aria-label='036astro'>
+    <span
+      class='grid size-11 place-items-center rounded-2xl accent-bg accent-shadow transition duration-300 group-hover:rotate-6 group-hover:scale-105'
     >
-      <div class='flex flex-1 shrink-0 items-stretch justify-start'>
-        <img alt='' class='mr-5 block h-8 w-auto' src='/favicon.svg' />
-        <a class='adaptable-text -ml-2 font-medium' href='/' rel='prefetch'>
-          Astro + TS Template
-        </a>
-      </div>
-      <div class='toggler-container'>
-        <Toggler client:load />
-      </div>
-    </div>
-  </nav>
-</div>
+     <Image src="/astro-white.svg" alt="036astro" width="25" height="25" />
+    </span>
+    <span class='display-font text-lg font-bold text-xl tracking-normal text-slate-900 no-underline dark:text-white'>
+      036astro
+    </span>
+  </a>
+
+  <Toggler client:load />
+  </div>
+</header>
 
 <script>
   import { scriptFunction } from '@/common/ui/components/header/header'

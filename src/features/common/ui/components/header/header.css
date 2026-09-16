@@ -1,9 +1,0 @@
-.navbar {
-  @apply mt-3 w-11/12
-  rounded-full backdrop-blur-xl transition-colors duration-1000;
-}
-
-.toggler-container {
-  @apply mt-4 items-center sm:static
-  sm:inset-auto sm:ml-6 sm:pr-0;
-}

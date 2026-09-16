@@ -1,10 +1,5 @@
-import { persistentAtom } from '@nanostores/persistent'
+import { atom } from 'nanostores'
 
-export const dataService = () => {
-  const dataStore = persistentAtom<string | undefined>('data', '', {
-    decode: JSON.parse,
-    encode: JSON.stringify
-  })
+export const dataStore = atom('')
 
-  return { dataStore }
-}
+export const dataService = () => ({ dataStore })

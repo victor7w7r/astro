@@ -1,5 +1,6 @@
 import svelte from '@astrojs/svelte'
 import vue from '@astrojs/vue'
+import UnoCSS from '@unocss/astro'
 import AstroAutoImport from 'astro-auto-import'
 import { defineConfig } from 'astro/config'
 import Sonda from 'sonda/astro'
@@ -17,7 +18,6 @@ import { imports, importTypes } from './auto-import'
 export default defineConfig({
   integrations: [
     (await import('@playform/compress')).default(),
-    TurboConsole(),
     AstroAutoImport(),
     AutoImport({
       dts: 'src/generated/auto-imports.d.ts',
@@ -29,14 +29,14 @@ export default defineConfig({
         ...importTypes
       ]
     }),
+    UnoCSS(),
+    TurboConsole(),
     vue(),
     svelte()
   ],
   prefetch: true,
   vite: {
-    build: {
-      sourcemap: true
-    },
+    build: { sourcemap: true },
     oxc: {
       decorator: {
         emitDecoratorMetadata: true,

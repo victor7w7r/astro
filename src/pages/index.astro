@@ -1,55 +1,69 @@
 ---
-import '@/home/ui/styles/home.css'
-
-import StorageState from '@/common/ui/components/storage-state/storage-state.vue'
 import Layout from '@/common/ui/layouts/Layout.astro'
-import Call from '@/home/ui/components/call.svelte'
 import Spinner from '@/home/ui/components/Spinner.astro'
+
+import Call from '@/home/ui/components/call.svelte'
 ---
 
-<Layout title='Home Page'>
-  <div class='mt-10 flex h-min flex-col justify-center backdrop-blur-xl'>
-    <div class='card-flex'>
-      <div class='card-container' id='card-container'>
-        <p class='adaptable-amina'>Made with love by</p>
-        <img-reactive
-          black='brand'
-          classstyle='scale-75 lg:scale-80'
-          white='brandwhite'></img-reactive>
-        <h3 class='adaptable-center-text-base mb-4 font-semibold'>
-          Happy Hacking! with Typescript?
-        </h3>
-        <p class='adaptable-center-text-base mb-8 font-roboto'>
-          Roboto Font works with
-        </p>
-        <img-reactive
-          black='tailwind'
-          classstyle='scale-50 tall:scale-65 lg:scale-65'
-          white='tailwindwhite'
+<Layout title='036astro'>
+  <div
+    class='flex h-full flex-1 bg-white text-slate-900 transition-colors duration-700 dark:bg-black dark:text-white'
+  >
+    <div class='content-width my-auto flex flex-1 flex-col gap-8 px-4 pb-5 sm:px-6 sm:pb-6 lg:px-12'>
+      <div class='mt-6 flex w-full items-center justify-center gap-5'>
+        <button
+          aria-label='Select purple theme'
+          class='color-button color-button-selected bg-[#6603fc]'
+          data-color='purple'
+          type='button'
+        ></button>
+        <button
+          aria-label='Select magenta theme'
+          class='color-button bg-[#9c1c85] shadow-lg shadow-[#9c1c85]/40'
+          data-color='magenta'
+          type='button'
+        ></button>
+        <button
+          aria-label='Select teal theme'
+          class='color-button bg-[#1c959c] shadow-lg shadow-[#1c959c]/40'
+          data-color='teal'
+          type='button'
+        ></button>
+      </div>
+
+      <div class='grid grid-cols-1 items-start gap-8 pb-6 sm:gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16'>
+        <home-intro class='block w-full'></home-intro>
+        <section class='relative flex w-full items-start justify-center' id='bitcoin'>
+          <div
+            aria-hidden='true'
+            class='accent-gradient absolute right-0 top-4 size-14 rounded-full shadow-xl blur-[1px] sm:right-16 sm:top-10 sm:size-24'
+          ></div>
+          <div
+            aria-hidden='true'
+            class='accent-bg absolute bottom-6 left-0 size-8 rounded-full border-8 border-[color:var(--accent)]/70 sm:left-12 sm:size-10'
+          ></div>
+          <div
+            aria-hidden='true'
+            class='accent-gradient absolute left-1/2 top-1/2 size-[16rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-80 blur-2xl sm:size-[20rem] lg:size-[30rem]'
+          ></div>
+          <Call client:load>
+            <Spinner />
+          </Call>
+        </section>
+      </div>
+      <div class='flex w-full justify-center mb-12'>
+        <a
+          class='primary-button no-underline shadow-xl'
+          href='/store'
         >
-        </img-reactive>
-        <img alt='' class='' id='imagetwo' />
+          Go To Store
+        </a>
       </div>
-      <div class='card-container' id='card-container'>
-        <StorageState client:load />
-        <h3 class='adaptable-center-text-bold'>Lets see bitcoin price</h3>
-        <Call client:load><Spinner /></Call>
-      </div>
-    </div>
-    <div class='centered-button-ctn'>
-      <a class='standard-button' href='/store' rel='prefetch'> Go to store</a>
-    </div>
-    <div class='mx-auto mt-3 flex w-fit flex-row gap-7' id='buttons-selector'>
     </div>
   </div>
 </Layout>
 
-<script>
-  import { scriptFunction } from '@/common/ui/scripts'
-  scriptFunction()
-</script>
-
-<script>
-  import { scriptFunction } from '@/home/ui/scripts'
-  scriptFunction()
+<script >
+  import { script } from '@/home/ui/scripts'
+  script()
 </script>

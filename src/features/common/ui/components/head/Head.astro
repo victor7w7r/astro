@@ -7,23 +7,27 @@ const { title } = Astro.props
 <meta charset='utf8' />
 <meta content='Astro description' name='description' />
 <meta content='width=device-width' name='viewport' />
-<link href='/favicon.svg' rel='icon' type='image/svg+xml' />
+<link href='/astro-white.svg' rel='icon' type='image/svg+xml' />
 <meta content={Astro.generator} name='generator' />
 <title>{title}</title>
 
 <script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return JSON.parse(localStorage.getItem('theme'))
-    }
-    return {
-      isDark: false,
-      white: 'bg-white',
-      dark: 'bg-gray-900'
-    }
-  })()
+  const isDark = () => {
+    const storedDark = localStorage.getItem('dark')
+    return storedDark ? JSON.parse(storedDark) === true : false
+  }
 
-  theme.isDark
-    ? document.documentElement.classList.add('dark')
-    : document.documentElement.classList.remove('dark')
+  const applyTheme = () => {
+    document.documentElement.classList.toggle('dark', isDark())
+  }
+
+  const preserveThemeBeforeSwap = event => {
+    event.newDocument.documentElement.classList.toggle('dark', isDark())
+    event.newDocument.documentElement.dataset.accent =
+      document.documentElement.dataset.accent || 'purple'
+  }
+
+  applyTheme()
+  document.addEventListener('astro:before-swap', preserveThemeBeforeSwap)
+  document.addEventListener('astro:after-swap', applyTheme)
 </script>

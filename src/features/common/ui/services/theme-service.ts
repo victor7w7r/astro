@@ -1,51 +1,40 @@
 import { persistentAtom } from '@nanostores/persistent'
+import { atom } from 'nanostores'
 
 import type { Theme } from '~/theme'
 
-export const themeService = () => {
-  const controlTheme = 'bg-slate-700/30'
+export type AccentName = 'purple' | 'magenta' | 'teal'
 
-  const themeStore = persistentAtom<Theme>(
-    'theme',
-    {
-      control: controlTheme,
-      dark: 'dark:bg-zinc-900',
-      isDark: false,
-      togglePeer: '',
-      white: 'bg-white'
-    },
-    {
-      decode: JSON.parse,
-      encode: JSON.stringify
-    }
-  )
+export const accentStore = atom<AccentName>('purple')
 
-  const setDark = (isDark: boolean) =>
-    themeStore.set({ ...themeStore.get(), isDark })
+const controlTheme = 'bg-slate-700/30'
+const darkStore = persistentAtom<boolean>('dark', false, {
+  decode: JSON.parse,
+  encode: JSON.stringify
+})
 
-  const toggle = () => {
-    const current = themeStore.get()
+const createTheme = (isDark: boolean): Theme => ({
+  control: controlTheme,
+  dark: 'dark:bg-zinc-900',
+  isDark,
+  togglePeer: isDark ? 'peer-checked:bg-[#6603fc]' : '',
+  white: 'bg-white'
+})
 
-    themeStore.set(
-      current.isDark
-        ? {
-            ...current,
-            control: controlTheme,
-            dark: 'dark:bg-zinc-900',
-            isDark: false,
-            togglePeer: 'peer-checked:bg-white'
-          }
-        : {
-            ...current,
-            control: controlTheme,
-            isDark: true,
-            togglePeer: 'peer-checked:bg-dark',
-            white: 'bg-white'
-          }
-    )
+const themeStore = atom<Theme>(createTheme(darkStore.get()))
 
-    document.documentElement.classList.toggle('dark')
+darkStore.subscribe(isDark => {
+  themeStore.set({ ...themeStore.get(), ...createTheme(isDark) })
+
+  if (typeof document !== 'undefined') {
+    document.documentElement.classList.toggle('dark', isDark)
   }
+})
+
+export const themeService = () => {
+  const setDark = (isDark: boolean) => darkStore.set(isDark)
+
+  const toggle = () => setDark(!darkStore.get())
 
   const changeSelector = (selector: string) => {
     const current = themeStore.get()
@@ -68,18 +57,17 @@ export const themeService = () => {
   }
 
   const changeBlue = () => changeSelector('sky')
-
   const changePurple = () => changeSelector('purple')
-
   const changeRed = () => changeSelector('red')
-
   const changeEmerald = () => changeSelector('emerald')
+  const setAccent = (accent: AccentName) => accentStore.set(accent)
 
   return {
     changeBlue,
     changeEmerald,
     changePurple,
     changeRed,
+    setAccent,
     setDark,
     themeStore,
     toggle

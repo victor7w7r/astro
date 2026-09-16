@@ -1,37 +1,75 @@
-import { themeService } from '@/common/ui/services'
+import { html, LitElement } from 'lit'
+import { customElement } from 'lit/decorators.js'
 
-export const path = (isDark: boolean, white: string, black: string) =>
-  `/img/${isDark ? white : black}.png`
+import { dataService, themeService } from '@/common/ui/services'
 
-export const scriptFunction = () => {
-  const themeState = themeService()
+const initializeColorButtons = () => {
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-color]')
+  if (buttons.length === 0) return
 
-  /* define<
-    {
-      black: string
-      classstyle: string
-      white: string
-    },
-    { isDark: boolean }
-  >('img-reactive', {
-    init() {
-      themeStore.subscribe(() => this.render())
-    },
-    render() {
-      this.isDark = themeStore.get().isDark
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      this.html`<img
-        alt=''
-        class='${this.props.classstyle}'
-        src='${path(this.isDark, this.props.white, this.props.black)}'
-      />`
+  const { setAccent } = themeService()
+  const selectedAccent = document.documentElement.dataset['accent'] ?? 'purple'
+
+  buttons.forEach(button => {
+    button.classList.toggle(
+      'color-button-selected',
+      button.dataset['color'] === selectedAccent
+    )
+
+    if (button.dataset['initialized'] === 'true') return
+    button.dataset['initialized'] = 'true'
+    button.addEventListener('click', () => {
+      const accent = button.dataset['color']
+      if (accent !== 'purple' && accent !== 'magenta' && accent !== 'teal') {
+        return
+      }
+
+      setAccent(accent)
+      buttons.forEach(item => {
+        item.classList.toggle('color-button-selected', item === button)
+      })
+    })
+  })
+}
+
+export const script = () => {
+  initializeColorButtons()
+  document.addEventListener('astro:page-load', initializeColorButtons)
+  if (typeof customElements === 'undefined') return
+
+  if (!customElements.get('home-intro')) {
+    @customElement('home-intro')
+    class HomeIntro extends LitElement {
+      override createRenderRoot() {
+        return this
+      }
+
+      override render() {
+        const storedValue = dataService().dataStore.get()
+
+        return html`
+          <section class="relative z-10 w-full max-w-xl">
+            <img class="dark:hidden" src="/brand.png" alt="036astro" />
+            <img
+              class="hidden dark:block"
+              src="/brandwhite.png"
+              alt="036astro"
+            />
+            <p
+              class="mt-4 max-w-md text-base leading-7 text-slate-700 sm:text-lg dark:text-white/70"
+            >
+              An astro template with UnoCSS, Svelte and Vue components, with
+              essential and useful libraries. Please enjoy.
+            </p>
+            <p
+              class="display-font mt-4 text-lg text-slate-900 dark:text-white"
+              style="width: 100%"
+            >
+              Store State: ${storedValue || 'Not yet'}
+            </p>
+          </section>
+        `
+      }
     }
-    })*/
-
-  /*document.querySelector('#buttons-selector')?.append(html`
-    <button class="blue-button" onclick=${changeBlue}></button>
-    <button class="purple-button" onclick=${changePurple}></button>
-    <button class="red-button" onclick=${changeRed}></button>
-    <button class="emerald-button" onclick=${changeEmerald}></button>
-  `)*/
+  }
 }

@@ -1,27 +1,83 @@
 ---
 import Head from '@/common/ui/components/head/Head.astro'
 import Header from '@/common/ui/components/header/Header.astro'
+import { ClientRouter } from 'astro:transitions'
 
 export type Props = { title: string }
 
 const { title } = Astro.props
 
-import '~/styles/global.css'
+
 ---
 
 <!doctype html>
 <html lang='en'>
   <head>
     <Head title={title} />
+    <ClientRouter />
   </head>
+  <style is:global>
+    :root {
+      --accent: #6603fc;
+      --accent-alt: #9c1c85;
+      --accent-soft: #9361ff;
+    }
+
+    :root[data-accent='magenta'] {
+      --accent: #9c1c85;
+      --accent-alt: #6603fc;
+      --accent-soft: #c04eaa;
+    }
+
+    :root[data-accent='teal'] {
+      --accent: #1c959c;
+      --accent-alt: #6603fc;
+      --accent-soft: #43c5c5;
+    }
+
+    .accent-bg {
+      background-color: var(--accent) !important;
+    }
+
+    .accent-text {
+      color: var(--accent) !important;
+    }
+
+    .accent-gradient {
+      background-image: linear-gradient(135deg, var(--accent-alt), var(--accent));
+    }
+
+    .accent-shadow {
+      box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--accent) 30%, transparent) !important;
+    }
+
+    .accent-link:hover {
+      color: var(--accent-soft) !important;
+    }
+
+    .primary-button {
+      background-color: var(--accent) !important;
+    }
+
+    .primary-button:hover {
+      background-color: var(--accent-alt) !important;
+    }
+
+    .color-button-selected {
+      box-shadow: 0 25px 50px -12px color-mix(in srgb, var(--accent) 75%, transparent) !important;
+    }
+
+    .theme-toggle-active {
+      background-color: var(--accent) !important;
+    }
+  </style>
   <body>
-    <main class='flex h-screen flex-col'>
+    <main class='flex min-h-screen flex-col'>
       <Header />
       <slot />
     </main>
     <script>
       import { scriptFunction } from '@/common/ui/layouts/layout'
-      import 'reflect-metadata'
 
       scriptFunction()
     </script>

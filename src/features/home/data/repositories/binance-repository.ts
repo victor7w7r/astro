@@ -20,10 +20,7 @@ export class BinanceRepositoryImpl implements BinanceRepository {
   readonly getBitcoin = async () =>
     pipe(
       tryCatch(this.binanceDataSource.getBitcoin, e => e),
-      map(
-        res =>
-          res.data?.find(curr => curr.symbol === 'BTCUSDT') ?? errorBinance()
-      ),
+      map(res => res.data ?? errorBinance()),
       getOrElse(() => of(errorBinance()))
     )()
 }
