@@ -1,4 +1,4 @@
-import { scriptFunction } from '@/common/ui/components/header/header'
+import { script } from '@/common/ui/components/header/header'
 
 describe('header', () => {
   const mocks = vi.hoisted(() => ({
@@ -23,7 +23,7 @@ describe('header', () => {
   it('should set the initial className of the nav element', () => {
     expect.assertions(1)
 
-    scriptFunction()
+    script()
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const nav = document.querySelector('nav')!
@@ -38,7 +38,7 @@ describe('header', () => {
       callback({ control: 'updated-control' })
     })
 
-    scriptFunction()
+    script()
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const nav = document.querySelector('nav')!

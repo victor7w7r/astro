@@ -1,15 +1,7 @@
 <script lang="ts">
-  import { themeService } from '@/common/ui/services'
+  import { useDarkTheme } from './toggler.svelte.ts'
 
-  const { themeStore, toggle } = themeService()
-
-  let { contrast = false }: { contrast?: boolean } = $props()
-
-  let dark = $state(false)
-
-  $effect(() => {
-  	dark = $themeStore.isDark
-  })
+  const theme = useDarkTheme()
 </script>
 
 <div class="relative">
@@ -17,14 +9,14 @@
     <button
       type="button"
       role="switch"
-      aria-checked={dark}
+      aria-checked={theme.dark}
       aria-label="Toggle dark mode"
-      class={`toggle-design ${dark ? 'theme-toggle-active after:translate-x-full' : ''}`}
+      class={`toggle-design ${theme.dark ? 'theme-toggle-active after:translate-x-full' : ''}`}
       data-testid="toggleable"
-      onclick={toggle}
+      onclick={theme.toggle}
     ></button>
     <span
-      class={`${contrast ? 'text-white/80' : 'text-slate-900 dark:text-slate-300'} ml-3 select-none text-sm font-medium`}
+      class='text-slate-900 dark:text-slate-300 ml-3 select-none text-sm font-medium'
     >
       Dark Mode
     </span>

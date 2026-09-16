@@ -17,17 +17,16 @@ const { title } = Astro.props
     return storedDark ? JSON.parse(storedDark) === true : false
   }
 
-  const applyTheme = () => {
+  const applyMode = () =>
     document.documentElement.classList.toggle('dark', isDark())
-  }
 
-  const preserveThemeBeforeSwap = event => {
+  const preserveModeBeforeSwap = event => {
     event.newDocument.documentElement.classList.toggle('dark', isDark())
     event.newDocument.documentElement.dataset.accent =
       document.documentElement.dataset.accent || 'purple'
   }
 
-  applyTheme()
-  document.addEventListener('astro:before-swap', preserveThemeBeforeSwap)
-  document.addEventListener('astro:after-swap', applyTheme)
+  applyMode()
+  document.addEventListener('astro:before-swap', preserveModeBeforeSwap)
+  document.addEventListener('astro:after-swap', applyMode)
 </script>

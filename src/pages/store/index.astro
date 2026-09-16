@@ -1,48 +1,22 @@
 ---
-
 import Layout from '@/common/ui/layouts/Layout.astro'
 ---
 
 <Layout title='Store Page'>
-  <div class='flex flex-1 items-center justify-center bg-black px-4 py-8 text-white sm:px-6'>
+  <div class='flex flex-1 items-center justify-center bg-white px-4 py-8 text-slate-900 transition-colors duration-700 dark:bg-black dark:text-white sm:px-6'>
     <section class='glass-panel w-full max-w-xl p-6 accent-shadow sm:p-10'>
       <div class='mt-2'>
         <h1 class='display-font mt-3 text-5xl leading-none tracking-tight sm:text-6xl'>
           Leave a trace.
         </h1>
-        <p class='mt-5 max-w-md text-sm leading-6 text-white/60 sm:text-base'>
+        <p class='mt-5 max-w-md text-sm leading-6 text-slate-600 dark:text-white/60 sm:text-base'>
           Write something small and keep it in the local store. It stays in this
           browser, ready whenever you come back.
         </p>
       </div>
-
-      <div class='mt-10'>
-        <p
-          class='mb-3 text-center text-sm font-semibold text-white/70'
-          id='store-state'
-        >
-          Store State: Not yet
-        </p>
-        <input
-          class='store-input'
-          id='inputable'
-          placeholder='Type your message...'
-          type='text'
-        />
-        <div class='mt-8 flex flex-col items-center gap-4'>
-          <button
-            class='primary-button'
-            id='send-button'
-            type='button'
-          >
-            Save message
-          </button>
-          <p class='text-sm text-white/50' id='store-feedback' aria-live='polite'></p>
-        </div>
-      </div>
-
-      <div class='mt-2 border-t border-white/10 pt-5'>
-        <a class='accent-link text-sm font-bold text-white/60 no-underline transition' href='/' rel='prefetch'>
+      <store-form></store-form>
+      <div class='mt-2 border-t border-slate-200 pt-5 dark:border-white/10'>
+        <a class='accent-link text-sm font-bold text-slate-600 no-underline transition dark:text-white/60' href='/' rel='prefetch'>
           ← Back to home
         </a>
       </div>
@@ -51,6 +25,6 @@ import Layout from '@/common/ui/layouts/Layout.astro'
 </Layout>
 
 <script>
-  import { scriptFunction } from '@/store/ui/scripts'
-  scriptFunction()
+  import { script } from '@/store/ui/scripts'
+  script()
 </script>

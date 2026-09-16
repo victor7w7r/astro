@@ -1,8 +1,8 @@
 ---
 import Layout from '@/common/ui/layouts/Layout.astro'
-import Spinner from '@/home/ui/components/Spinner.astro'
-
 import Call from '@/home/ui/components/call.svelte'
+import Spinner from '@/home/ui/components/Spinner.astro'
+import ColorButtons from '@/home/ui/components/color-buttons.vue'
 ---
 
 <Layout title='036astro'>
@@ -10,26 +10,7 @@ import Call from '@/home/ui/components/call.svelte'
     class='flex h-full flex-1 bg-white text-slate-900 transition-colors duration-700 dark:bg-black dark:text-white'
   >
     <div class='content-width my-auto flex flex-1 flex-col gap-8 px-4 pb-5 sm:px-6 sm:pb-6 lg:px-12'>
-      <div class='mt-6 flex w-full items-center justify-center gap-5'>
-        <button
-          aria-label='Select purple theme'
-          class='color-button color-button-selected bg-[#6603fc]'
-          data-color='purple'
-          type='button'
-        ></button>
-        <button
-          aria-label='Select magenta theme'
-          class='color-button bg-[#9c1c85] shadow-lg shadow-[#9c1c85]/40'
-          data-color='magenta'
-          type='button'
-        ></button>
-        <button
-          aria-label='Select teal theme'
-          class='color-button bg-[#1c959c] shadow-lg shadow-[#1c959c]/40'
-          data-color='teal'
-          type='button'
-        ></button>
-      </div>
+     	<ColorButtons client:load />
 
       <div class='grid grid-cols-1 items-start gap-8 pb-6 sm:gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16'>
         <home-intro class='block w-full'></home-intro>

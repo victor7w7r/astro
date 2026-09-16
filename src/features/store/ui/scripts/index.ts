@@ -1,36 +1,90 @@
+import { html, LitElement } from 'lit'
+import { customElement, state } from 'lit/decorators.js'
+
 import { dataService } from '@/common/ui/services'
 
-const initializeStore = () => {
-  const input = document.querySelector<HTMLInputElement>('#inputable')
-  const button = document.querySelector<HTMLButtonElement>('#send-button')
-  const feedback = document.querySelector<HTMLElement>('#store-feedback')
-  const state = document.querySelector<HTMLElement>('#store-state')
+export const script = () => {
+  if (typeof customElements === 'undefined') return
 
-  if (!input || !button || button.dataset['initialized'] === 'true') return
+  if (!customElements.get('store-form')) {
+    @customElement('store-form')
+    class StoreForm extends LitElement {
+      private readonly service = dataService()
+      private readonly dataStore = this.service.dataStore
+      private readonly setText = this.service.setText
 
-  const { dataStore } = dataService()
-  button.dataset['initialized'] = 'true'
+      @state() private accessor value: string = this.dataStore.get().text
+      @state() private accessor draftValue: string = this.value
+      @state() private accessor feedback = ''
 
-  dataStore.subscribe(value => {
-    if (!input.isConnected) return
+      private unsubscribe?: () => void
 
-    const message = value || 'Not yet'
-    input.value = value
+      override createRenderRoot() {
+        return this
+      }
 
-    if (state) state.textContent = `Store State: ${message}`
-  })
+      override connectedCallback() {
+        super.connectedCallback()
 
-  button.addEventListener('click', () => {
-    const value = input.value.trim()
-    dataStore.set(value)
+        this.unsubscribe = this.dataStore.subscribe(store => {
+          this.value = store.text
+          this.draftValue = store.text
+        })
+      }
 
-    if (feedback) {
-      feedback.textContent = value ? 'Saved.' : 'Store State: Not yet'
+      override disconnectedCallback() {
+        this.unsubscribe?.()
+        super.disconnectedCallback()
+      }
+
+      private updateValue = (event: Event) => {
+        this.draftValue = (event.target as HTMLInputElement).value
+      }
+
+      private saveValue = () => {
+        const value = this.draftValue.trim()
+
+        this.setText(value)
+        this.feedback = value ? 'Saved.' : 'Store State: Not yet'
+      }
+
+      override render() {
+        return html`
+          <div class="mt-10">
+            <p
+              class="mb-3 text-center text-sm font-semibold text-slate-700 dark:text-white/70"
+              aria-live="polite"
+            >
+              Store State: ${this.value || 'Not yet'}
+            </p>
+
+            <input
+              class="store-input store-form-input w-full"
+              placeholder="Type your message..."
+              type="text"
+              .value=${this.draftValue}
+              @input=${this.updateValue}
+            />
+
+            <div class="mt-4 flex flex-col items-center gap-4">
+              <button
+                class="primary-button mt-4"
+                type="button"
+                @click=${this.saveValue}
+              >
+                Save message
+              </button>
+
+              <p
+                class="text-sm text-slate-500 dark:text-white/50"
+                aria-live="polite"
+              >
+                ${this.feedback}
+              </p>
+            </div>
+          </div>
+        `
+      }
     }
-  })
-}
-
-export const scriptFunction = () => {
-  initializeStore()
-  document.addEventListener('astro:page-load', initializeStore)
+  }
 }

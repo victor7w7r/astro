@@ -1,5 +1,14 @@
-import { atom } from 'nanostores'
+import { map } from 'nanostores'
 
-export const dataStore = atom('')
+export type Accent = 'purple' | 'magenta' | 'teal'
 
-export const dataService = () => ({ dataStore })
+const dataStore = map<{ text: string; color: Accent }>({
+  text: '',
+  color: 'purple'
+})
+
+export const dataService = () => ({
+  setAccent: (accent: Accent) => dataStore.setKey('color', accent),
+  setText: (text: string) => dataStore.setKey('text', text),
+  dataStore
+})

@@ -1,40 +1,9 @@
 import { html, LitElement } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-import { dataService, themeService } from '@/common/ui/services'
-
-const initializeColorButtons = () => {
-  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-color]')
-  if (buttons.length === 0) return
-
-  const { setAccent } = themeService()
-  const selectedAccent = document.documentElement.dataset['accent'] ?? 'purple'
-
-  buttons.forEach(button => {
-    button.classList.toggle(
-      'color-button-selected',
-      button.dataset['color'] === selectedAccent
-    )
-
-    if (button.dataset['initialized'] === 'true') return
-    button.dataset['initialized'] = 'true'
-    button.addEventListener('click', () => {
-      const accent = button.dataset['color']
-      if (accent !== 'purple' && accent !== 'magenta' && accent !== 'teal') {
-        return
-      }
-
-      setAccent(accent)
-      buttons.forEach(item => {
-        item.classList.toggle('color-button-selected', item === button)
-      })
-    })
-  })
-}
+import { dataService } from '@/common/ui/services'
 
 export const script = () => {
-  initializeColorButtons()
-  document.addEventListener('astro:page-load', initializeColorButtons)
   if (typeof customElements === 'undefined') return
 
   if (!customElements.get('home-intro')) {
@@ -45,7 +14,7 @@ export const script = () => {
       }
 
       override render() {
-        const storedValue = dataService().dataStore.get()
+        const storedValue = dataService().dataStore.get().text
 
         return html`
           <section class="relative z-10 w-full max-w-xl">

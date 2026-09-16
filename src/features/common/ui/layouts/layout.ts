@@ -1,24 +1,22 @@
-import { accentStore, themeService } from '@/common/ui/services'
+import { dataService, modeService } from '@/common/ui/services'
 
-export const scriptFunction = () => {
-  const { themeStore } = themeService()
+export const script = () => {
+  const { modeStore } = modeService()
+  const { dataStore } = dataService()
 
-  const className =
-    'app flex min-h-screen flex-col transition-colors duration-1000'
-  const main = document.querySelector('main') ?? document.createElement('main')
+  modeStore.subscribe(isDark => {
+    if (typeof document !== 'undefined')
+      document.documentElement.classList.toggle('dark', isDark)
+  })
 
-  main.className = `${className} ${themeStore.get().white} ${themeStore.get().dark}`
-  themeStore.subscribe(
-    th => (main.className = `${className} ${th.white} ${th.dark}`)
-  )
+  const applyAccent = (accent: string) =>
+    (document.documentElement.dataset['accent'] = accent)
 
-  const applyAccent = (accent: string) => {
-    document.documentElement.dataset['accent'] = accent
-  }
+  applyAccent(dataStore.get().color)
 
-  applyAccent(accentStore.get())
-  accentStore.subscribe(applyAccent)
+  dataStore.listen((store, _, __) => applyAccent(store.color))
+
   document.addEventListener('astro:page-load', () =>
-    applyAccent(accentStore.get())
+    applyAccent(dataStore.get().color)
   )
 }

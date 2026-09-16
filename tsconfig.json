@@ -7,6 +7,7 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
+    "jsx": "preserve",
     "lib": [
       "ESNext",
       "DOM",

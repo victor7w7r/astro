@@ -1,13 +1,11 @@
 ---
+import { ClientRouter } from 'astro:transitions'
 import Head from '@/common/ui/components/head/Head.astro'
 import Header from '@/common/ui/components/header/Header.astro'
-import { ClientRouter } from 'astro:transitions'
 
 export type Props = { title: string }
 
 const { title } = Astro.props
-
-
 ---
 
 <!doctype html>
@@ -16,11 +14,26 @@ const { title } = Astro.props
     <Head title={title} />
     <ClientRouter />
   </head>
+  <body>
+    <main class='app flex min-h-screen flex-col transition-colors duration-1000'>
+      <Header />
+      <slot />
+    </main>
+    <script>
+      import { script } from './layout'
+      script()
+    </script>
+  </body>
   <style is:global>
     :root {
       --accent: #6603fc;
       --accent-alt: #9c1c85;
       --accent-soft: #9361ff;
+      --store-input-text: #0f172a;
+    }
+
+    :root.dark {
+      --store-input-text: #fff;
     }
 
     :root[data-accent='magenta'] {
@@ -55,6 +68,10 @@ const { title } = Astro.props
       color: var(--accent-soft) !important;
     }
 
+    .store-form-input {
+      color: var(--store-input-text) !important;
+    }
+
     .primary-button {
       background-color: var(--accent) !important;
     }
@@ -71,15 +88,4 @@ const { title } = Astro.props
       background-color: var(--accent) !important;
     }
   </style>
-  <body>
-    <main class='flex min-h-screen flex-col'>
-      <Header />
-      <slot />
-    </main>
-    <script>
-      import { scriptFunction } from '@/common/ui/layouts/layout'
-
-      scriptFunction()
-    </script>
-  </body>
 </html>
