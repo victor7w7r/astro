@@ -11,9 +11,5 @@ export const imports = [
 ]
 
 export const importTypes = [
-  {
-    from: '@/common/ui/services',
-    imports: ['Accent'],
-    type: true
-  }
+
 ]

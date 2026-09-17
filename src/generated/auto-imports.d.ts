@@ -19,9 +19,3 @@ declare global {
   const modeService: typeof import('@/common/ui/services').modeService
   const state: typeof import('lit/decorators.js').state
 }
-// for type re-export
-declare global {
-  // @ts-ignore
-  export type { Accent } from '@/common/ui/services'
-  import('@/common/ui/services')
-}

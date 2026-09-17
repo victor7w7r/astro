@@ -10,23 +10,3 @@ export type Props = { title: string }
 <link href='/astro-white.svg' rel='icon' type='image/svg+xml' />
 <meta content={Astro.generator} name='generator' />
 <title>{title}</title>
-
-<script is:inline>
-  const isDark = () => {
-    const storedDark = localStorage.getItem('dark')
-    return storedDark ? JSON.parse(storedDark) === true : false
-  }
-
-  const applyMode = () =>
-    document.documentElement.classList.toggle('dark', isDark())
-
-  const preserveModeBeforeSwap = event => {
-    event.newDocument.documentElement.classList.toggle('dark', isDark())
-    event.newDocument.documentElement.dataset.accent =
-      document.documentElement.dataset.accent || 'purple'
-  }
-
-  applyMode()
-  document.addEventListener('astro:before-swap', preserveModeBeforeSwap)
-  document.addEventListener('astro:after-swap', applyMode)
-</script>

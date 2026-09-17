@@ -43,14 +43,8 @@ export default defineConfig({
       Sonda(),
       AutoExport({
         path: [
-          'src/features/common/ui/services/*',
-          'src/features/home/business/models/*',
-          'src/features/home/business/repositories/*',
-          'src/features/home/business/usecases/binance/*',
-          'src/features/home/data/datasources/*',
-          'src/features/home/data/repositories/*'
-        ],
 
+        ],
         extname: 'ts',
         formatter: filename => `export * from './${filename}'`
       }),

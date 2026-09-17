@@ -1,6 +1,5 @@
 {
   "globals": {
-    "Accent": true,
     "LitElement": true,
     "container": true,
     "customElement": true,
